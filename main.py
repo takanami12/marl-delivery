@@ -52,7 +52,7 @@ def collect_sft_data(env: Environment,
 def encode_state(state) -> str:
     # Serialize state thành text, ví dụ:
     # "Time: 0; Robots: [(x1,y1),(x2,y2),...]; Packages: [(locA,locB), ...]"
-    print(state["packages"][0])
+    print(state["robots"][0])
     robots_str = ";".join(f"R{i}:{pos}" for i,pos in enumerate(state["robots"]))
     pkgs_str   = ";".join(f"P{i}:{(s,d)}" for i,(s,d) in enumerate(state["packages"]))
     return f"Time: {state['time_step']} | {robots_str} | {pkgs_str}"
