@@ -93,7 +93,7 @@ if __name__=="__main__":
     done = False
     t = 0
 
-    collect_sft_data(env, Agents, n_episodes=100, max_steps_per_ep=50, output_path="sft_data.jsonl")
+    collect_sft_data(env, Agents, n_episodes=100, max_steps_per_ep=50, output_path=f"{args.map.strip(".txt")}_sft_data.jsonl")
     while not done:
         actions = agents.get_actions(state)
         next_state, reward, done, infos = env.step(actions)
