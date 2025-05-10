@@ -50,12 +50,19 @@ def collect_sft_data(env: Environment,
 
 # Ví dụ helper functions bạn cần tự định nghĩa:
 def encode_state(state) -> str:
-    # Serialize state thành text, ví dụ:
-    # "Time: 0; Robots: [(x1,y1),(x2,y2),...]; Packages: [(locA,locB), ...]"
-    print(state["robots"][1])
-    robots_str = ";".join(f"R{i}:{pos}" for i,pos in enumerate(state["robots"]))
-    pkgs_str   = ";".join(f"P{i}:{(s,d)}" for i,(s,d) in enumerate(state["packages"]))
-    return f"Time: {state['time_step']} | {robots_str} | {pkgs_str}"
+    # Encode robots: (x, y, is_carrying)
+    robots_str = "; ".join(
+        f"R{i}:[pos=({x},{y}), carrying={carry}]"
+        for i, (x, y, carry) in enumerate(state["robots"])
+    )
+
+    # Encode packages: (id, src_x, src_y, dst_x, dst_y, start_time, deadline)
+    pkgs_str = "; ".join(
+        f"P{pid}:[from=({sx},{sy}), to=({dx},{dy}), start={st}, deadline={ddl}]"
+        for (pid, sx, sy, dx, dy, st, ddl) in state["packages"]
+    )
+
+    return f"Time: {state['time_step']} | Robots: {robots_str} | Packages: {pkgs_str}"
 
 def format_actions(actions) -> str:
     # Chuyển list như [(move,0),(pick,3),...] thành chuỗi: "move 0; pick 3; ..."
