@@ -269,6 +269,7 @@ class Environment:
                             package_id = self.packages[j].package_id
                             robot.carrying = package_id
                             self.packages[j].status = 'in_transit'
+                            self.packages[j].start = robot.position
                             # print(package_id, 'in transit')
                             break
 
