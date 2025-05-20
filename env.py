@@ -131,7 +131,7 @@ class Environment:
         """
         selected_packages = []
         for i in range(len(self.packages)):
-            if self.packages[i].start_time == self.t:
+            # if self.packages[i].start_time == self.t:
                 selected_packages.append(self.packages[i])
                 self.packages[i].status = 'waiting'
 
@@ -269,7 +269,6 @@ class Environment:
                             package_id = self.packages[j].package_id
                             robot.carrying = package_id
                             self.packages[j].status = 'in_transit'
-                            self.packages[j].start = robot.position
                             # print(package_id, 'in transit')
                             break
 
